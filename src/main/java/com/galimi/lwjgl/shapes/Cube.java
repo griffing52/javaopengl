@@ -25,32 +25,32 @@ public class Cube {
             glVertex3f(1.0f, 1.0f, -1.0f);
             glVertex3f(1.0f, 1.0f, 1.0f);
             glVertex3f(-1.0f, 1.0f, 1.0f);
-
-            glColor3f(1,0,0);          // Set The Color To Red
+            
+            glColor3f(0,0,1);          // Set The Color To Red
             glVertex3f(-1.0f, 1.0f, 1.0f); // front
             glVertex3f(-1.0f, -1.0f, 1.0f);
             glVertex3f(1.0f, -1.0f, 1.0f);
             glVertex3f(1.0f, 1.0f, 1.0f);
-
-            glColor3f(1,0,0);          // Set The Color To Orange
+            
+            glColor3f(1,0.4f,0);          // Set The Color To Orange
             glVertex3f(1.0f, 1.0f, 1.0f); // right
             glVertex3f(1.0f, 1.0f, -1.0f);
             glVertex3f(1.0f, -1.0f, -1.0f);
             glVertex3f(1.0f, -1.0f, 1.0f);
-
+            
             glColor3f(1,1,0);          // Set The Color To Yellow
             glVertex3f(1.0f, -1.0f, 1.0f); // bottom
             glVertex3f(1.0f, -1.0f, -1.0f);
             glVertex3f(-1.0f, -1.0f, -1.0f);
             glVertex3f(-1.0f, -1.0f, 1.0f);
-
+            
             glColor3f(1,0,1);          // Set The Color To Violet
             glVertex3f(-1.0f, -1.0f, 1.0f); // left
             glVertex3f(-1.0f, -1.0f, -1.0f);
             glVertex3f(-1.0f, 1.0f, -1.0f);
             glVertex3f(-1.0f, 1.0f, 1.0f);
-
-            glColor3f(0,0,1);          // Set The Color To Blue
+            
+            glColor3f(1,1,1);          // Set The Color To Blue
             glVertex3f(-1.0f, 1.0f, -1.0f); // back
             glVertex3f(-1.0f, -1.0f, -1.0f);
             glVertex3f(1.0f, -1.0f, -1.0f);

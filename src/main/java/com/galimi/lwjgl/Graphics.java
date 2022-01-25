@@ -1,16 +1,23 @@
 package com.galimi.lwjgl;
 
+import java.util.ArrayList;
+
+import com.galimi.lwjgl.shapes.Drawable;
+
 import org.lwjgl.*;
 import org.lwjgl.opengl.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
-import com.galimi.lwjgl.shapes.*;
-import com.galimi.lwjgl.util.NumUtil;
-
 public class Graphics {
-    Camera camera;
+    private Camera camera;
+    private ArrayList<Drawable> objects;
+    private boolean dbug = false;
+
+    public Graphics() {
+        objects = new ArrayList<Drawable>(20); // increase if adding a lot of values
+    }
 
     public void run(int width, int height, float fov) {
         Display window = new Display(width, height, "Test");
@@ -24,8 +31,7 @@ public class Graphics {
         // Cube cube = new Cube(width/2, height/2, 50);
         // RotatingCube rtCube = new RotatingCube(width/2, height/2, 250, 250, 1f);
         // RotatingCube rtCube = new RotatingCube(width/2, height/2, 50, 50, 1f);
-        RotatingCube[] rtCubes = new RotatingCube[20];
-        fillCubeArray(rtCubes, width, height);
+        
         // RotatingCube rt2Cube = new RotatingCube(width/3, height/3, 100, 50, 0.4f);
         // Cube testCube = new Cube(width/3, height/3, 100, 50) {
         //     @Override
@@ -41,12 +47,10 @@ public class Graphics {
             // glClearDepth(1.0f);
 
             glColor3f(0.25f, 0.75f, 0.25f);
-            for (RotatingCube r: rtCubes) { r.draw(); }
-            // square.draw();
-            // rtSquare.draw();
-            // cube.draw();
-            // rtCube.draw();
-            // rt2Cube.draw();
+
+            for (Drawable d: objects) {
+                d.draw();
+            }    
 
             glFlush();
 			glfwSwapBuffers(window.getWindow()); // swap the color buffers
@@ -55,12 +59,6 @@ public class Graphics {
 
         window.close();
 	}
-
-    private void perspective(float fov) {
-        // glMultMatrixf(new float[0] {
-            
-        // });
-    }
 
     private void init(int width, int height) {
         GL.createCapabilities();
@@ -84,14 +82,13 @@ public class Graphics {
         // glEnable(GL_CULL_FACE);
     }
 
-    private void fillCubeArray(RotatingCube[] arr, int width, int height) {
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = new RotatingCube(
-                NumUtil.randomInt(width*0.2, width*0.8), 
-                NumUtil.randomInt(height*0.2, height*0.8), 
-                NumUtil.randomInt(50, 100), 
-                50, 
-                NumUtil.randomFloat(0.01, 2));
+    public void debug() {
+        dbug = !dbug;
+    }
+
+    public <T extends Drawable> void add(T... values) {
+        for (T d: values) {
+            objects.add(d);
         }
     }
 }

@@ -2,7 +2,7 @@ package com.galimi.lwjgl.shapes;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class Cube {
+public class Cube implements Drawable {
     float x, y, z, s;
     /**
      * 
@@ -57,12 +57,14 @@ public class Cube {
             glVertex3f(1.0f, 1.0f, -1.0f);
         }
         glEnd();
+        glPopMatrix();
     }
 
     public void init() {
+        glPushMatrix();
         glLoadIdentity();
         glTranslatef(x,y,z);
-        glScalef(s, s, s);
+        glScalef(s, s, 1);
     }
 
     public void draw() {

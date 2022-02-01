@@ -29,7 +29,8 @@ public class Camera {
         glMatrixMode(GL_MODELVIEW);
         // glTranslatef(0, 0, 2);
         // glPopMatrix();     
-        glFrustum(width*0.3, width*0.7, height*0.3, height*0.7, 0.01, 100);
+        // glFrustum(width*0.3, width*0.7, height*0.3, height*0.7, 0.01, 100);
+        glFrustum(-2.5, 2.5, -2.5, 2.5, 1, 100);
         /*l the left frustum plane
         r the right frustum plane
         b the bottom frustum plane

@@ -15,10 +15,10 @@ public class RotatingCube extends Cube {
 
     public void draw() {
         super.draw(() -> {
-            glRotatef(rotation, 2, 3, 1);
-            // glRotatef(20, 1, 0, 0);
-            x = _x + (float) Math.sin(rotation*0.014)*100;
-            y = _y + (float) Math.sin(rotation*0.023)*100;
+            // glRotatef(rotation, 2, 3, 1);
+            // // glRotatef(20, 1, 0, 0);
+            // x = _x + (float) Math.sin(rotation*0.014)*100;
+            // y = _y + (float) Math.sin(rotation*0.023)*100;
         });
         rotation += speed;
     }

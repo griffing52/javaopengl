@@ -70,7 +70,7 @@ public class Graphics {
         glOrtho(0, width, 0, height, -200, 500);
 
         glEnable(GL_DEPTH_TEST);
-        glDepthFunc(GL_LESS);    
+        glDepthFunc(GL_LESS);
 
         glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 

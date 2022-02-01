@@ -67,7 +67,8 @@ public class Graphics {
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
 
-        glOrtho(0, width, 0, height, -200, 500);
+        // glOrtho(0, width, 0, height, -200, 500);
+        glFrustum(-2.5, 2.5, -2.5, 2.5, 0.01, 100);
 
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);

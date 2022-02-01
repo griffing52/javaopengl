@@ -26,7 +26,7 @@ public class RotatingCube extends Cube {
             // glRotatef(20, 1, 0, 0);
             x = _x + (float) Math.sin(rotation*0.014*a)*100;
             y = _y + (float) Math.sin(rotation*0.023*b)*100;
-            z = _z + (float) Math.sin(rotation*0.004*c)*100;
+            z = _z + (float) Math.sin(rotation*0.004*c)*40;
         });
         rotation += speed;
     }

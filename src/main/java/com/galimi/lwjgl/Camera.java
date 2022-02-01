@@ -35,10 +35,7 @@ public class Camera {
         double fH = 1;
         double fW = fH * aspect;
 
-        double hO = 0.6;
-        double wO = hO * aspect;
-
-        glFrustum(-fW+wO, fW+wO, -fH+hO, fH+hO, zNear, zFar);
+        glFrustum(-fW, fW, -fH, fH, zNear, zFar);
 
         glDepthFunc(GL_LESS);
 

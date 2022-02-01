@@ -13,15 +13,15 @@ public class App {
 
         Graphics g = new Graphics();
         g.add(rtCubes);
-        // g.add(new RotatingCube(400, 400, 200, 50, 1));
+        // g.add(new RotatingCube(0, 0, 50, 50, 1));
         g.run(width, height, 45.0f);
     }
 
     private static void fillCubeArray(RotatingCube[] arr, int width, int height) {
         for (int i = 0; i < arr.length; i++) {
             arr[i] = new RotatingCube(
-                NumUtil.randomInt(width*0.2, width*0.8), 
-                NumUtil.randomInt(height*0.2, height*0.8), 
+                NumUtil.randomInt(width*0.2-width*0.5, width*0.8-width*0.5), 
+                NumUtil.randomInt(height*0.2-height*0.5, height*0.8-height*0.5), 
                 NumUtil.randomInt(50, 100), 
                 50, 
                 NumUtil.randomFloat(0.4, 2));

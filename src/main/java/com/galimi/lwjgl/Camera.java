@@ -13,38 +13,41 @@ public class Camera {
         this.z = z;
         this.fov = fov;
     }
-
+    
     public void init(int width, int height) {
+        glEnable(GL_DEPTH_TEST);
+
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
+
+        glMatrixMode(GL_PROJECTION);
+        glLoadIdentity();
+
         double aspect = (double) width/height;
         
         double zNear = 0.1;
         double zFar = 200;
         
-        double fH = 1/Math.tan(fov*Math.PI/360) * Math.abs(zNear);
+        // double fH = 1/Math.tan(fov*Math.PI/360) * Math.abs(zNear) * 2;
+        // double fW = fH * aspect;
+        // glFrustum(-fW, fW, -fH, fH, zNear, zFar); 
+
+        double fH = 1;
         double fW = fH * aspect;
-        // glPushMatrix();
-        // glFrustum(-fW, fW, -fH, fH, zNear, zFar); 
-        // glFrustum(-fW, fW, -fH, fH, zNear, zFar); 
+
+        double hO = 0.6;
+        double wO = hO * aspect;
+
+        glFrustum(-fW+wO, fW+wO, -fH+hO, fH+hO, zNear, zFar);
+
+        glDepthFunc(GL_LESS);
+
+        glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 
         glMatrixMode(GL_MODELVIEW);
-        // glTranslatef(0, 0, 2);
-        // glPopMatrix();     
-        // glFrustum(width*0.3, width*0.7, height*0.3, height*0.7, 0.01, 100);
-        // glFrustum(-2.5, 2.5, -2.5, 2.5, 1, 100);
-        /*l the left frustum plane
-        r the right frustum plane
-        b the bottom frustum plane
-        t the top frustum plane
-        n the near frustum plane
-        f*/
-        System.out.println(String.format("l: %f, r: %f, b: %f, t: %f, n: %f, f: %f", -fW, fW, -fH, fH, zNear, zFar));
+        glLoadIdentity();
+        // System.out.println(String.format("l: %f, r: %f, b: %f, t: %f, n: %f, f: %f", -fW, fW, -fH, fH, zNear, zFar));
         // glFrustum(0, width, 0, height, zNear, zFar);
 
-    }
-
-    private void perspective() {
-        // glMultMatrixf(new float[0] {
-            
-        // });
     }
 }

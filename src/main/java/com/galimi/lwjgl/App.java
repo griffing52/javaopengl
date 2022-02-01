@@ -8,7 +8,7 @@ public class App {
         int width = 1920; // 800
         int height = 1080; // 600
 
-        RotatingCube[] rtCubes = new RotatingCube[20];
+        RotatingCube[] rtCubes = new RotatingCube[40];
         fillCubeArray(rtCubes, width, height);
 
         Graphics g = new Graphics();
@@ -24,7 +24,7 @@ public class App {
                 NumUtil.randomInt(height*0.2, height*0.8), 
                 NumUtil.randomInt(50, 100), 
                 50, 
-                NumUtil.randomFloat(0.01, 2));
+                NumUtil.randomFloat(0.4, 2));
         }
     }
 }

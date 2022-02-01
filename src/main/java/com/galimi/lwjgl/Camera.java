@@ -26,7 +26,7 @@ public class Camera {
         double aspect = (double) width/height;
         
         double zNear = 0.1;
-        double zFar = 200;
+        double zFar = 400;
         
         // double fH = 1/Math.tan(fov*Math.PI/360) * Math.abs(zNear) * 2;
         // double fW = fH * aspect;

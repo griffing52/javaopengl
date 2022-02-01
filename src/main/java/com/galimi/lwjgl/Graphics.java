@@ -46,7 +46,6 @@ public class Graphics {
             for (Drawable d: objects) {
                 d.draw();
             }    
-            glLoadIdentity();
 
             glFlush();
 			glfwSwapBuffers(window.getWindow()); // swap the color buffers

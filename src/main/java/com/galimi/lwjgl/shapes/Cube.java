@@ -61,8 +61,7 @@ public class Cube implements Drawable {
     }
 
     public void init() {
-        glPushMatrix();
-        glLoadIdentity();
+        // glLoadIdentity();
         glTranslatef(x,y,-z);
         glScalef(s, s, 1);
     }

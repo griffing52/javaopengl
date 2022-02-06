@@ -1,4 +1,4 @@
-package com.galimi.lwjgl;
+package com.galimi.lwjgl.manager;
 
 import static org.lwjgl.opengl.GL11.*;
 // import java.nio.FloatBuffer;
@@ -26,7 +26,7 @@ public class Camera {
         double aspect = (double) width/height;
         
         double zNear = 0.1;
-        double zFar = 400;
+        double zFar = 1000;
         
         // double fH = 1/Math.tan(fov*Math.PI/360) * Math.abs(zNear) * 2;
         // double fW = fH * aspect;
@@ -46,5 +46,22 @@ public class Camera {
         // System.out.println(String.format("l: %f, r: %f, b: %f, t: %f, n: %f, f: %f", -fW, fW, -fH, fH, zNear, zFar));
         // glFrustum(0, width, 0, height, zNear, zFar);
 
+    }
+
+    public void move(float x, float y, float z) {
+        this.x+=x;
+        this.y+=y;
+        this.z+=z;
+    }
+
+    public float getX() {
+        return x;
+    }
+    public float getZ() {
+        return z;
+    }
+
+    public void update() {
+        glTranslatef(x, y, z);
     }
 }

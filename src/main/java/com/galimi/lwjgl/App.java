@@ -28,7 +28,6 @@ public class App {
         m = new Mouse() {
             public void callback(Camera cam) {
                 cam.getRot().rotateX(getdx()*getSensitivity()).rotateY(getdy()*getSensitivity());
-                cam.lookAt();
             }
         };
         cam = new Camera(0, 0, 0, 45);

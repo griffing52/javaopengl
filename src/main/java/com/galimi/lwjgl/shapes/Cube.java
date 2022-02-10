@@ -2,8 +2,11 @@ package com.galimi.lwjgl.shapes;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class Cube implements Drawable {
-    float x, y, z, s;
+import com.galimi.lwjgl.math.Vec3;
+
+public class Cube extends Vec3 implements Drawable {
+    Vec3 pos;
+    float s;
     /**
      * 
      * @param x x-value
@@ -11,9 +14,7 @@ public class Cube implements Drawable {
      * @param s side length
      */
     public Cube(float x, float y, float z, float s) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        super(x, y, z);
         this.s = s;
     }
 
@@ -62,7 +63,7 @@ public class Cube implements Drawable {
 
     public void init() {
         // glLoadIdentity();
-        glTranslatef(x,y,-z);
+        glTranslatef(getX(),getY(),-getZ());
         glScalef(s, s, 1);
     }
 

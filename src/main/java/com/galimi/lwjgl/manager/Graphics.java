@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.galimi.lwjgl.manager.input.Controller;
 import com.galimi.lwjgl.manager.input.Mouse;
+import com.galimi.lwjgl.math.Vec3;
 import com.galimi.lwjgl.shapes.Drawable;
 
 import org.lwjgl.*;
@@ -49,9 +50,10 @@ public class Graphics {
             controller.update();
 
             for (Drawable d: objects) {
-                camera.lookAt();
-                camera.update();
-                d.draw();                
+                if (d instanceof Vec3) camera.update(((Vec3) d).copy());
+                else camera.update();
+                // if (d instanceof Vec3) camera.rotate(((Vec3) d));
+                d.draw();
                 glLoadIdentity();
             }    
 
@@ -80,8 +82,6 @@ public class Graphics {
         glfwSetCursorPosCallback(window, (w, x, y) -> {
             mouse.update(x, y);
         });
-
-        // glViewport(0, 0, 100, 200); // TODO important
         // glEnable(GL_CULL_FACE);
     }
 

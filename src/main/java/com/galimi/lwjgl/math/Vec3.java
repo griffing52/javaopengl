@@ -7,15 +7,27 @@ public class Vec3 extends Vec {
         super(x, y);
         this.z = z;
     }
-
+    
     public Vec3 add(float x, float y, float z) {
         super.add(x, y);
         this.z += z;
         return this;
     }
 
-    public Vec sub(float x, float y, float z) {
+    public Vec3 add(Vec3 a) {
+        super.add(a);
+        this.z += z;
+        return this;
+    }
+
+    public Vec3 sub(float x, float y, float z) {
         super.sub(x, y);
+        this.z -= z;
+        return this;
+    }
+
+    public Vec3 sub(Vec3 a) {
+        super.sub(a);
         this.z -= z;
         return this;
     }
@@ -63,5 +75,13 @@ public class Vec3 extends Vec {
 
     public float getZ() {
         return z;
+    }
+
+    public Vec3 copy() {
+        return new Vec3(x, y, z);
+    }
+
+    public String toString() {
+        return new StringBuffer().append("(").append(x).append(", ").append(y).append(", ").append(z).append(")").toString();
     }
 }

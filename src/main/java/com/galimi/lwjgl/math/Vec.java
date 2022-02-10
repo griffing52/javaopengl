@@ -16,15 +16,21 @@ public class Vec {
         return this;
     }
 
-    public Vec add(Vec v) {
-        this.x += v.getX();
-        this.y += v.getY();
+    public Vec add(Vec a) {
+        this.x += a.getX();
+        this.y += a.getY();
         return this;
     }
     
     public Vec sub(float x, float y) {
         this.x -= x;
         this.y -= y;
+        return this;
+    }
+
+    public Vec sub(Vec a) {
+        this.x -= a.getX();
+        this.y -= a.getY();
         return this;
     }
     

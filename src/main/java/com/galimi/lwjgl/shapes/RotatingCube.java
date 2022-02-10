@@ -25,7 +25,7 @@ public class RotatingCube extends Cube {
 
     public void draw() {
         super.draw(() -> {
-            glRotatef(rotation, 1, 0, 1);
+            // glRotatef(rotation, 1, 0, 1);
             // glRotatef(rotation, 2, 3, 1);
             // glRotatef(20, 1, 0, 0);
             // x = _x + (float) Math.sin(rotation*0.014*a)*100;

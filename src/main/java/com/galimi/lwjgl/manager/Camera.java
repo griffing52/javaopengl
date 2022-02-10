@@ -20,9 +20,6 @@ public class Camera {
     public void init(int width, int height) {
         glEnable(GL_DEPTH_TEST);
 
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
-
         glMatrixMode(GL_PROJECTION);
         glLoadIdentity();
 

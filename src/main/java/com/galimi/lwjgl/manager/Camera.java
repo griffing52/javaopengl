@@ -1,16 +1,19 @@
 package com.galimi.lwjgl.manager;
 
 import static org.lwjgl.opengl.GL11.*;
-// import java.nio.FloatBuffer;
-// import org.lwjgl.BufferUtils;
+
+import com.galimi.lwjgl.math.Vec;
+import com.galimi.lwjgl.math.Vec3;
 
 public class Camera {
-    private float x, y, z, fov;
+    private Vec3 pos;
+    private Vec3 rot;
+    private float fov;
+    private float rotation = 0;
 
     public Camera(float x, float y, float z, float fov) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
+        pos = new Vec3(x, y, z);
+        rot = new Vec3(0, 0, 1);
         this.fov = fov;
     }
     
@@ -49,19 +52,30 @@ public class Camera {
     }
 
     public void move(float x, float y, float z) {
-        this.x+=x;
-        this.y+=y;
-        this.z+=z;
+        pos.add(x, y, z);
     }
 
     public float getX() {
-        return x;
+        return pos.getX();
     }
     public float getZ() {
-        return z;
+        return pos.getZ();
     }
 
     public void update() {
-        glTranslatef(x, y, z);
+        glTranslatef(pos.getX(), pos.getY(), pos.getZ());
+    }
+
+    public Vec3 getRot() {
+        return rot;
+    }
+
+    public void lookAt() {
+        glRotatef(rotation, 0, 1, 0);
+        rotation+=0.001f;
+    }
+
+    public Vec getMoveVec() {
+        return new Vec(rot.getX(), rot.getZ());
     }
 }

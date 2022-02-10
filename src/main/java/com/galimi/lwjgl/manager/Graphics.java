@@ -3,6 +3,7 @@ package com.galimi.lwjgl.manager;
 import java.util.ArrayList;
 
 import com.galimi.lwjgl.manager.input.Controller;
+import com.galimi.lwjgl.manager.input.Mouse;
 import com.galimi.lwjgl.shapes.Drawable;
 
 import org.lwjgl.*;
@@ -13,14 +14,16 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Graphics {
     private final Controller controller;
+    private final Mouse mouse;
     private final Camera camera;
     private ArrayList<Drawable> objects;
     private boolean dbug = false;
 
-    public Graphics(Camera camera, Controller controller) {
+    public Graphics(Camera camera, Controller controller, Mouse mouse) {
         objects = new ArrayList<Drawable>(20); // increase if adding a lot of values
         this.camera = camera;
         this.controller = controller;
+        this.mouse = mouse;
     }
 
     public void run(int width, int height, float fov) {
@@ -46,8 +49,9 @@ public class Graphics {
             controller.update();
 
             for (Drawable d: objects) {
+                camera.lookAt();
                 camera.update();
-                d.draw();
+                d.draw();                
                 glLoadIdentity();
             }    
 
@@ -68,11 +72,16 @@ public class Graphics {
         camera.init(width, height);
 
         glfwSetKeyCallback(window, controller::callback);
+
+        // Cursor
+        // glfwSetCursor(window, glfwCreateStandardCursor(GLFW_IBEAM_CURSOR));
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        glfwSetCursorPos(window, 0, 0);
         glfwSetCursorPosCallback(window, (w, x, y) -> {
-            System.out.println(x);
+            mouse.update(x, y);
         });
 
-        // glViewport(0, 0, width, height);
+        // glViewport(0, 0, 100, 200); // TODO important
         // glEnable(GL_CULL_FACE);
     }
 

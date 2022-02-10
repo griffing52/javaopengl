@@ -2,6 +2,8 @@ package com.galimi.lwjgl;
 
 import com.galimi.lwjgl.manager.Camera;
 import com.galimi.lwjgl.manager.Graphics;
+import com.galimi.lwjgl.manager.input.Mouse;
+import com.galimi.lwjgl.math.Vec;
 import com.galimi.lwjgl.manager.input.Controller;
 import com.galimi.lwjgl.manager.input.Key;
 import com.galimi.lwjgl.shapes.*;
@@ -13,6 +15,7 @@ public class App {
     private static Camera cam;
     private static Graphics g;
     private static Controller c;
+    private static Mouse m;
 
     public static void main(String[] args) {
         int width = 1920; // 800
@@ -22,8 +25,14 @@ public class App {
         fillCubeArray(rtCubes, width, height);
         
         c = new Controller();
+        m = new Mouse() {
+            public void callback(Camera cam) {
+                cam.getRot().rotateX(getdx()*getSensitivity()).rotateY(getdy()*getSensitivity());
+                cam.lookAt();
+            }
+        };
         cam = new Camera(0, 0, 0, 45);
-        g = new Graphics(cam, c);
+        g = new Graphics(cam, c, m);
         setController(c);
         
         g.add(rtCubes);
@@ -31,14 +40,14 @@ public class App {
     }
 
     private static void setController(Controller c) {
-        float fSpeed = 0.4f;
-        float hSpeed = 4;
+        Vec speed = new Vec(1.1f, 12);
 
         c.addKeys(
-            new Key(GLFW_KEY_A, () -> cam.move(hSpeed, 0, 0)),
-            new Key(GLFW_KEY_D, () -> cam.move(-hSpeed, 0, 0)),
-            new Key(GLFW_KEY_W, () -> cam.move(0, 0, fSpeed)),
-            new Key(GLFW_KEY_S, () -> cam.move(0, 0, -fSpeed))
+            new Key(GLFW_KEY_A, (window) -> cam.move(speed.getY(), 0, 0)),
+            new Key(GLFW_KEY_D, (window) -> cam.move(-speed.getY(), 0, 0)),
+            new Key(GLFW_KEY_W, (window) -> cam.move(0, 0, speed.getX())),
+            new Key(GLFW_KEY_S, (window) -> cam.move(0, 0, -speed.getX())),
+            new Key(GLFW_KEY_ESCAPE, (window) -> glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL))
         );
     }
 

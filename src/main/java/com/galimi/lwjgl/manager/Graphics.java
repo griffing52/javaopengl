@@ -50,7 +50,7 @@ public class Graphics {
             controller.update();
 
             for (Drawable d: objects) {
-                if (d instanceof Vec3) camera.update(((Vec3) d).copy());
+                if (d instanceof Vec3) camera.update(((Vec3) d));
                 else camera.update();
                 // if (d instanceof Vec3) camera.rotate(((Vec3) d));
                 d.draw();

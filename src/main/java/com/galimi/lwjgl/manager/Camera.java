@@ -32,7 +32,7 @@ public class Camera {
         perspective();
 
         glDepthFunc(GL_LESS);
-
+        
         glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 
         glMatrixMode(GL_MODELVIEW);
@@ -58,9 +58,11 @@ public class Camera {
         double fH = 1;
         double fW = fH * aspect;
         
+        // glFrustum(-1.3, 1.3, -1, 1, 0.1, 1000);
+        // glFrustum(-1000, 1000, -1000, 1000, 0.1, 1000);
         glFrustum(-fW, fW, -fH, fH, zNear, zFar);
 
-        // glViewport(0, 0, width, height);
+        glViewport(0, 0, width, height);
         
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
@@ -83,9 +85,16 @@ public class Camera {
 
     public void update(Vec3 dist) {
         update();
-        dist.sub(pos).rotateY(rotation);
-        glTranslatef(dist.getX(), dist.getY(), dist.getZ());
-        rotation+=0.0001f;
+        glRotatef(-rotation, 0, 1, 0);
+        // Vec3 v = dist.copy().sub(pos);
+        // Vec3 offset = v.copy().rotateY(rotation).sub(v);
+        // glTranslatef(offset.getX(), offset.getY(), offset.getZ());
+        // rotation+=0.0001f;
+    }
+
+    // TODO temp remove
+    public void addRot(int a) {
+        rotation+=a*Math.PI/10;
     }
     
     public Vec3 getRot() {

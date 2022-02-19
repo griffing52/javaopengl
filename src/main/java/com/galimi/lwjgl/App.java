@@ -34,6 +34,14 @@ public class App {
         g = new Graphics(cam, c, m);
         setController(c);
         
+        // g.add(new Cube(0, -100, 50, 30) {
+        //     private float offset = 0;
+        //     @Override
+        //     public void draw() {
+        //         draw(() -> add(0, 0, 50*(float)Math.sin(offset)));
+        //         // offset+=0.001;
+        //     }
+        // });
         g.add(rtCubes);
         g.run(width, height, 45.0f);
     }
@@ -46,8 +54,12 @@ public class App {
             new Key(GLFW_KEY_D, (window) -> cam.move(-speed.getY(), 0, 0)),
             new Key(GLFW_KEY_W, (window) -> cam.move(0, 0, speed.getX())),
             new Key(GLFW_KEY_S, (window) -> cam.move(0, 0, -speed.getX())),
-            new Key(GLFW_KEY_ESCAPE, (window) -> glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL))
-        );
+            new Key(GLFW_KEY_ESCAPE, (window) -> glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL)),
+            new Key(GLFW_KEY_E, (window) -> cam.addRot(1)), // TODO remove temp
+            new Key(GLFW_KEY_Q, (window) -> cam.addRot(-1)), // TODO remove temp
+            // new Key(GLFW_Up, (window) -> cam.move(0, 0, speed.getX())), // TODO remove temp
+            new Key(GLFW_KEY_Q, (window) -> cam.addRot(-1)) // TODO remove temp
+            );
     }
 
     private static void fillCubeArray(RotatingCube[] arr, int width, int height) {

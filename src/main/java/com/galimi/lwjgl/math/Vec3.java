@@ -16,7 +16,7 @@ public class Vec3 extends Vec {
 
     public Vec3 add(Vec3 a) {
         super.add(a);
-        this.z += z;
+        this.z += a.getZ();
         return this;
     }
 
@@ -28,7 +28,7 @@ public class Vec3 extends Vec {
 
     public Vec3 sub(Vec3 a) {
         super.sub(a);
-        this.z -= z;
+        this.z -= a.getZ();
         return this;
     }
 
@@ -44,6 +44,11 @@ public class Vec3 extends Vec {
         return this;
     }
 
+    /**
+     * rotates vector around x-axis clockwise
+     * @param theta radian rotation clockwise
+     * @return this
+     */
     public Vec3 rotateX(float theta) {
         float temp = y;
         y = (float) (temp*Math.cos(theta) - z*Math.sin(theta));
@@ -51,13 +56,23 @@ public class Vec3 extends Vec {
         return this;
     }
 
+    /**
+     * rotates vector around y-axis clockwise
+     * @param theta radian rotation clockwise
+     * @return this
+     */
     public Vec3 rotateY(float theta) {
         float temp = x;
-        x = (float) (temp*Math.cos(theta)-z*Math.sin(theta));
+        x = (float) (temp*Math.cos(theta)+z*Math.sin(theta));
         z = (float) (-temp*Math.sin(theta)+z*Math.cos(theta));
         return this;
     }
 
+    /**
+     * rotates vector around z-axis clockwise
+     * @param theta radian rotation clockwise
+     * @return this
+     */
     public Vec3 rotateZ(float theta) {
         float temp = x;
         x = (float) (temp*Math.cos(theta)-y*Math.sin(theta));
@@ -83,5 +98,9 @@ public class Vec3 extends Vec {
 
     public String toString() {
         return new StringBuffer().append("(").append(x).append(", ").append(y).append(", ").append(z).append(")").toString();
+    }
+
+    public boolean equals(Vec3 vec) {
+        return super.equals(vec) && z == vec.getZ();
     }
 }

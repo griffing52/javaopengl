@@ -2,7 +2,7 @@ package com.galimi.lwjgl.math;
 
 public class Vec {
 
-    float x,y;
+    protected float x,y;
 
     public Vec(float x, float y) {
         this.x = x;
@@ -65,5 +65,9 @@ public class Vec {
     
     public float getY() {
         return y;
+    }
+
+    public boolean equals(Vec v) {
+        return x == v.getX() && y == v.getY();
     }
 }

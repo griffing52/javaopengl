@@ -4,11 +4,10 @@ import com.galimi.lwjgl.game.Player;
 import com.galimi.lwjgl.manager.Camera;
 import com.galimi.lwjgl.manager.Graphics;
 import com.galimi.lwjgl.manager.input.Mouse;
-import com.galimi.lwjgl.math.Vec;
 import com.galimi.lwjgl.manager.input.Controller;
 import com.galimi.lwjgl.manager.input.Key;
 import com.galimi.lwjgl.shapes.*;
-import com.galimi.lwjgl.util.NumUtil;
+import com.galimi.lwjgl.util.Vec;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -38,10 +37,16 @@ public class App {
         player = new Player(0, -height*0.3f, -40);
         
         g.add(new Box(0, -height*0.3f, -25, 4000, 20, 100));
+        // player.applyForce();
         g.add(player);
         g.run(width, height, 45.0f);
     }
 
+    /**
+     * `setController` sets up the keys that will be used to control the camera
+     * 
+     * @param c The controller that will be used to control the camera.
+     */
     private static void setController(Controller c) {
         Vec speed = new Vec(1.1f, 12);
 

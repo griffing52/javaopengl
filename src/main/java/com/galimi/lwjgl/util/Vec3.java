@@ -1,4 +1,4 @@
-package com.galimi.lwjgl.math;
+package com.galimi.lwjgl.util;
 
 public class Vec3 extends Vec {
     protected float z;
@@ -8,6 +8,14 @@ public class Vec3 extends Vec {
         this.z = z;
     }
     
+    /**
+     * Add the given x, y, and z values to the x, y, and z values of this vector
+     * 
+     * @param x The x-coordinate of the vector.
+     * @param y The y-coordinate of the vector.
+     * @param z The z coordinate of the vector.
+     * @return Nothing.
+     */
     public Vec3 add(float x, float y, float z) {
         super.add(x, y);
         this.z += z;
@@ -80,6 +88,11 @@ public class Vec3 extends Vec {
         return this;
     }
 
+    /**
+     * Normalize the vector
+     * 
+     * @return Nothing.
+     */
     public Vec3 normalize() {
         double offset = 1/Math.sqrt(x*x+y*y+z*z);
         x *= offset;
@@ -88,10 +101,20 @@ public class Vec3 extends Vec {
         return this;
     }
 
+    /**
+     * Returns the z component of the vector
+     * 
+     * @return The z value.
+     */
     public float getZ() {
         return z;
     }
 
+    /**
+     * Return a new Vec3 object with the same values as this Vec3
+     * 
+     * @return A new Vec3 object.
+     */
     public Vec3 copy() {
         return new Vec3(x, y, z);
     }

@@ -2,7 +2,7 @@ package com.galimi.lwjgl.shapes;
 
 import static org.lwjgl.opengl.GL11.*;
 
-import com.galimi.lwjgl.math.Vec3;
+import com.galimi.lwjgl.util.Vec3;
 
 public class Cube extends Vec3 implements Drawable {
     Vec3 pos;

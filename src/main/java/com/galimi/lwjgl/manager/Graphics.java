@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import com.galimi.lwjgl.manager.input.Controller;
 import com.galimi.lwjgl.manager.input.Mouse;
-import com.galimi.lwjgl.math.Vec3;
 import com.galimi.lwjgl.shapes.Drawable;
+import com.galimi.lwjgl.util.Vec3;
 
 import org.lwjgl.*;
 import org.lwjgl.opengl.*;

@@ -1,7 +1,7 @@
 package com.galimi.lwjgl.manager.input;
 
 import com.galimi.lwjgl.manager.Camera;
-import com.galimi.lwjgl.math.Vec;
+import com.galimi.lwjgl.util.Vec;
 
 public abstract class Mouse {
     private Vec pos, prev;

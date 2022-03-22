@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.galimi.lwjgl.math.Vec3;
+import com.galimi.lwjgl.util.Vec3;
 
 /**
  * Unit test for simple App.

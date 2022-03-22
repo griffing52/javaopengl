@@ -2,17 +2,15 @@ package com.galimi.lwjgl.shapes;
 
 import static org.lwjgl.opengl.GL11.*;
 
-import java.nio.FloatBuffer;
-
-import com.galimi.lwjgl.math.Vec3;
+import com.galimi.lwjgl.util.Vec3;
 
 public class Box extends Vec3 implements Drawable {
     Vec3 pos;
     float w,h,d;
-    FloatBuffer fb;
+    float[][] colors;
     
     /**
-     * 
+     * Creates Box object
      * @param x x-coord
      * @param y y-coord
      * @param z z-coord
@@ -25,47 +23,61 @@ public class Box extends Vec3 implements Drawable {
         this.w = w;
         this.h = h;
         this.d = d;
-        fb = FloatBuffer.wrap(new float[] {0.06f,0.41f,0.15f});
+        colors = new float[][] {{0.06f,0.41f,0.15f}, 
+                                {0.3f, 0.2f, 0}, 
+                                {0.3f, 0.2f, 0}, 
+                                {0.3f, 0.2f, 0}, 
+                                {0.3f, 0.2f, 0}, 
+                                {0.3f, 0.2f, 0}};
+    }
+
+    /**
+     * Set the colors of the vertices
+     * 
+     * @param colors A 2D array of colors. Each row is a color, and each column is a color component.
+     */
+    public void setColors(float[][] colors) {
+        this.colors = colors;
     }
 
     public void drawVertices() {
         glBegin(GL_QUADS);
         {
-            glColor3f(0.06f,0.41f,0.15f);          // Set The Color To Green
+            glColor3fv(colors[0]);          // Set The Color To Green
             glVertex3f(-1.0f, 1.0f, -1.0f); // top
             glVertex3f(1.0f, 1.0f, -1.0f);
             glVertex3f(1.0f, 1.0f, 1.0f);
             glVertex3f(-1.0f, 1.0f, 1.0f);
             
-            glColor3f(0.5f, 0.37f, 0);          // Set The Color To Brown
+            glColor3fv(colors[1]);
             // glColor3f(0,0,1);          // Set The Color To Red
             glVertex3f(-1.0f, 1.0f, 1.0f); // back
             glVertex3f(-1.0f, -1.0f, 1.0f);
             glVertex3f(1.0f, -1.0f, 1.0f);
             glVertex3f(1.0f, 1.0f, 1.0f);
             
-            glColor3f(0.5f, 0.37f, 0);          // Set The Color To Brown
+            glColor3fv(colors[2]);
             // glColor3f(1,0.4f,0);          // Set The Color To Orange
             glVertex3f(1.0f, 1.0f, 1.0f); // right
             glVertex3f(1.0f, 1.0f, -1.0f);
             glVertex3f(1.0f, -1.0f, -1.0f);
             glVertex3f(1.0f, -1.0f, 1.0f);
             
-            glColor3f(0.5f, 0.37f, 0);          // Set The Color To Brown
+            glColor3fv(colors[3]);
             // glColor3f(1,1,0);          // Set The Color To Yellow
             glVertex3f(1.0f, -1.0f, 1.0f); // bottom
             glVertex3f(1.0f, -1.0f, -1.0f);
             glVertex3f(-1.0f, -1.0f, -1.0f);
             glVertex3f(-1.0f, -1.0f, 1.0f);
             
-            glColor3f(0.5f, 0.37f, 0);          // Set The Color To Brown
+            glColor3fv(colors[4]);
             // glColor3f(1,0,1);          // Set The Color To Violet
             glVertex3f(-1.0f, -1.0f, 1.0f); // left
             glVertex3f(-1.0f, -1.0f, -1.0f);
             glVertex3f(-1.0f, 1.0f, -1.0f);
             glVertex3f(-1.0f, 1.0f, 1.0f);
             
-            glColor3f(0.08f, 0.07f, 0);          // Set The Color To Brown
+            glColor3fv(colors[5]);
             // glColor3f(1,1,1);          // Set The Color To Blue
             glVertex3f(-1.0f, 1.0f, -1.0f); // front
             glVertex3f(-1.0f, -1.0f, -1.0f);

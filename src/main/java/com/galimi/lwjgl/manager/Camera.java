@@ -2,8 +2,8 @@ package com.galimi.lwjgl.manager;
 
 import static org.lwjgl.opengl.GL11.*;
 
-import com.galimi.lwjgl.math.Vec;
-import com.galimi.lwjgl.math.Vec3;
+import com.galimi.lwjgl.util.Vec;
+import com.galimi.lwjgl.util.Vec3;
 
 public class Camera {
     private Vec3 pos;

@@ -23,6 +23,9 @@ public class RotatingCube extends Cube {
         c = 1;
     }
 
+    /**
+     * It draws the cube and rotates it.
+     */
     public void draw() {
         super.draw(() -> {
             glRotatef(rotation, 1, 0, 1);

@@ -1,4 +1,4 @@
-package com.galimi.lwjgl;
+package com.galimi.lwjgl.manager;
 
 import org.lwjgl.glfw.*;
 import org.lwjgl.system.*;

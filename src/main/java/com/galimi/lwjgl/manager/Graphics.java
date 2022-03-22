@@ -1,7 +1,10 @@
-package com.galimi.lwjgl;
+package com.galimi.lwjgl.manager;
 
 import java.util.ArrayList;
 
+import com.galimi.lwjgl.manager.input.Controller;
+import com.galimi.lwjgl.manager.input.Mouse;
+import com.galimi.lwjgl.math.Vec3;
 import com.galimi.lwjgl.shapes.Drawable;
 
 import org.lwjgl.*;
@@ -11,35 +14,31 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Graphics {
-    private Camera camera;
+    private final Controller controller;
+    private final Mouse mouse;
+    private final Camera camera;
     private ArrayList<Drawable> objects;
     private boolean dbug = false;
 
-    public Graphics() {
+    public Graphics(Camera camera, Controller controller, Mouse mouse) {
         objects = new ArrayList<Drawable>(20); // increase if adding a lot of values
+        this.camera = camera;
+        this.controller = controller;
+        this.mouse = mouse;
     }
 
     public void run(int width, int height, float fov) {
         Display window = new Display(width, height, "Test");
 		System.out.println("LWJGL version: " + Version.getVersion());
 
-        camera = new Camera(0, 0, 1, fov);
-        init(width, height);
+        init(width, height, window.getWindow());
         
-        // Square square = new Square(width/2, height/2, 50);
-        // RotatingSquare rtSquare = new RotatingSquare(width/2, height/2, 50, 0.5f);
-        // Cube cube = new Cube(width/2, height/2, 50);
-        // RotatingCube rtCube = new RotatingCube(width/2, height/2, 250, 250, 1f);
-        // RotatingCube rtCube = new RotatingCube(width/2, height/2, 50, 50, 1f);
-        
-        // RotatingCube rt2Cube = new RotatingCube(width/3, height/3, 100, 50, 0.4f);
         // Cube testCube = new Cube(width/3, height/3, 100, 50) {
         //     @Override
         //     public void draw() {
         //         super.draw(() -> );
         //     }
         // };
-        // RotatingCube rtCube = new RotatingCube(50, 50, 50, 50, 1f);
 
         while (window.alive()) {
 
@@ -48,8 +47,14 @@ public class Graphics {
 
             glColor3f(0.25f, 0.75f, 0.25f);
 
+            controller.update();
+
             for (Drawable d: objects) {
+                if (d instanceof Vec3) camera.update(((Vec3) d));
+                else camera.update();
+                // if (d instanceof Vec3) camera.rotate(((Vec3) d));
                 d.draw();
+                glLoadIdentity();
             }    
 
             glFlush();
@@ -60,25 +65,23 @@ public class Graphics {
         window.close();
 	}
 
-    private void init(int width, int height) {
+    private void init(int width, int height, long window) {
         GL.createCapabilities();
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
-
-        glOrtho(0, width, 0, height, -200, 500);
-
-        glEnable(GL_DEPTH_TEST);
-        glDepthFunc(GL_LESS);
-
-        glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+        // glOrtho(0, width, 0, height, -200, 500);
 
         camera.init(width, height);
 
-        // glViewport(0, 0, width, height);
-        
-        glLoadIdentity();
+        glfwSetKeyCallback(window, controller::callback);
+
+        // Cursor
+        // glfwSetCursor(window, glfwCreateStandardCursor(GLFW_IBEAM_CURSOR));
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        glfwSetCursorPos(window, 0, 0);
+        glfwSetCursorPosCallback(window, (w, x, y) -> {
+            mouse.update(x, y);
+        });
         // glEnable(GL_CULL_FACE);
     }
 
@@ -86,7 +89,8 @@ public class Graphics {
         dbug = !dbug;
     }
 
-    public <T extends Drawable> void add(T... values) {
+    @SafeVarargs
+    public final <T extends Drawable> void add(T... values) {
         for (T d: values) {
             objects.add(d);
         }

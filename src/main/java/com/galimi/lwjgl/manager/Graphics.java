@@ -2,6 +2,7 @@ package com.galimi.lwjgl.manager;
 
 import java.util.ArrayList;
 
+import com.galimi.lwjgl.entities.Vehicle;
 import com.galimi.lwjgl.manager.input.Controller;
 import com.galimi.lwjgl.manager.input.Mouse;
 import com.galimi.lwjgl.shapes.Drawable;
@@ -14,9 +15,14 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Graphics {
+    public interface UpdateGraphics {
+        public void update(Camera camera, Controller controller, Mouse mouse, ArrayList<Drawable> drawableObjs);
+    }
+    
     private final Controller controller;
     private final Mouse mouse;
     private final Camera camera;
+    private UpdateGraphics updateGraphics;
     private ArrayList<Drawable> objects;
     private boolean dbug = false;
 
@@ -25,6 +31,12 @@ public class Graphics {
         this.camera = camera;
         this.controller = controller;
         this.mouse = mouse;
+        this.updateGraphics = (cam, c, m, objects) -> {};
+    }
+
+    public Graphics setUpdate(UpdateGraphics ug) {
+        this.updateGraphics = ug;
+        return this;
     }
 
     public void run(int width, int height, float fov) {
@@ -43,19 +55,24 @@ public class Graphics {
         while (window.alive()) {
 
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
-            // glClearDepth(1.0f);
+            glClearDepth(1.0f);
 
             glColor3f(0.25f, 0.75f, 0.25f);
 
             controller.update();
-
+            camera.update();
+            
             for (Drawable d: objects) {
-                if (d instanceof Vec3) camera.update(((Vec3) d));
-                else camera.update();
+                if (d instanceof Vec3) camera.translate(((Vec3) d));
+                else camera.translate();
+
+                if (d instanceof Vehicle) ((Vehicle) d).update();
                 // if (d instanceof Vec3) camera.rotate(((Vec3) d));
                 d.draw();
                 glLoadIdentity();
             }    
+
+            updateGraphics.update(camera, controller, mouse, objects);
 
             glFlush();
 			glfwSwapBuffers(window.getWindow()); // swap the color buffers

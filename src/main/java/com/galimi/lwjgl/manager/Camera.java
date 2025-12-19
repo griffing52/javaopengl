@@ -2,10 +2,11 @@ package com.galimi.lwjgl.manager;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import com.galimi.lwjgl.entities.Vehicle;
 import com.galimi.lwjgl.util.Vec;
 import com.galimi.lwjgl.util.Vec3;
 
-public class Camera {
+public class Camera extends Vehicle {
     private Vec3 pos;
     private Vec3 rot;
     private float fov;
@@ -13,7 +14,8 @@ public class Camera {
     private int width = 1, height = 1;
 
     public Camera(float x, float y, float z, float fov) {
-        pos = new Vec3(x, y, z);
+        super(x,y,z);
+        // pos = new Vec3(x, y, z);
         rot = new Vec3(0, 0, 1);
         this.fov = fov;
     }
@@ -69,22 +71,34 @@ public class Camera {
     }
     
     public void move(float x, float y, float z) {
-        pos.add(x, y, z);
+        // pos.add(x, y, z);
+        add(x, y, z);
     }
     
-    public float getX() {
-        return pos.getX();
-    }
-    public float getZ() {
-        return pos.getZ();
+    // public float getX() {
+    //     // return pos.getX();
+    //     return getX();
+    // }
+    // public float getZ() {
+    //     // return pos.getZ();
+    //     return getZ();
+    // }
+    
+    public Vec3 getVel() {
+        return vel;
     }
     
-    public void update() {
-        glTranslatef(pos.getX(), pos.getY(), pos.getZ());
+    public Vec3 getAcc() {
+        return acc;
     }
 
-    public void update(Vec3 dist) {
-        update();
+    public void translate() {
+        glTranslatef(getX(), getY(), getZ());
+        // glTranslatef(pos.getX(), pos.getY(), pos.getZ());
+    }
+
+    public void translate(Vec3 dist) {
+        translate();
         glRotatef(-rotation, 0, 1, 0);
         // Vec3 v = dist.copy().sub(pos);
         // Vec3 offset = v.copy().rotateY(rotation).sub(v);
@@ -101,9 +115,9 @@ public class Camera {
         return rot;
     }
     
-    public Vec3 getPos() {
-        return pos;
-    }
+    // public Vec3 getPos() {
+    //     return pos;
+    // }
     
     
     public Vec getMoveVec() {

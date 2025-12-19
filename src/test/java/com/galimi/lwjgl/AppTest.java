@@ -26,6 +26,6 @@ class AppTest {
         Vec3 offset = v.copy().rotateY((float)Math.PI*3/2).sub(v);
         dist.add(offset);
         // assertEquals(new Vec3(6, 0, -2), dist);
-        assertEquals(1, 1);
+        assertEquals(dist.setMag(1).getMag(), 1);
     }
 }

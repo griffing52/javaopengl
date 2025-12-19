@@ -4,8 +4,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 import com.galimi.lwjgl.util.Vec3;
 
-public class Box extends Vec3 implements Drawable {
-    Vec3 pos;
+public class Box extends Vec3 implements Drawable, Collidable {
     float w,h,d;
     float[][] colors;
     
@@ -44,48 +43,66 @@ public class Box extends Vec3 implements Drawable {
         glBegin(GL_QUADS);
         {
             glColor3fv(colors[0]);          // Set The Color To Green
-            glVertex3f(-1.0f, 1.0f, -1.0f); // top
-            glVertex3f(1.0f, 1.0f, -1.0f);
-            glVertex3f(1.0f, 1.0f, 1.0f);
-            glVertex3f(-1.0f, 1.0f, 1.0f);
+            glVertex3f(-0.5f, 0.5f, -0.5f); // top
+            glVertex3f(0.5f, 0.5f, -0.5f);
+            glVertex3f(0.5f, 0.5f, 0.5f);
+            glVertex3f(-0.5f, 0.5f, 0.5f);
             
             glColor3fv(colors[1]);
             // glColor3f(0,0,1);          // Set The Color To Red
-            glVertex3f(-1.0f, 1.0f, 1.0f); // back
-            glVertex3f(-1.0f, -1.0f, 1.0f);
-            glVertex3f(1.0f, -1.0f, 1.0f);
-            glVertex3f(1.0f, 1.0f, 1.0f);
+            glVertex3f(-0.5f, 0.5f, 0.5f); // back
+            glVertex3f(-0.5f, -0.5f, 0.5f);
+            glVertex3f(0.5f, -0.5f, 0.5f);
+            glVertex3f(0.5f, 0.5f, 0.5f);
             
             glColor3fv(colors[2]);
             // glColor3f(1,0.4f,0);          // Set The Color To Orange
-            glVertex3f(1.0f, 1.0f, 1.0f); // right
-            glVertex3f(1.0f, 1.0f, -1.0f);
-            glVertex3f(1.0f, -1.0f, -1.0f);
-            glVertex3f(1.0f, -1.0f, 1.0f);
+            glVertex3f(0.5f, 0.5f, 0.5f); // right
+            glVertex3f(0.5f, 0.5f, -0.5f);
+            glVertex3f(0.5f, -0.5f, -0.5f);
+            glVertex3f(0.5f, -0.5f, 0.5f);
             
             glColor3fv(colors[3]);
             // glColor3f(1,1,0);          // Set The Color To Yellow
-            glVertex3f(1.0f, -1.0f, 1.0f); // bottom
-            glVertex3f(1.0f, -1.0f, -1.0f);
-            glVertex3f(-1.0f, -1.0f, -1.0f);
-            glVertex3f(-1.0f, -1.0f, 1.0f);
+            glVertex3f(0.5f, -0.5f, 0.5f); // bottom
+            glVertex3f(0.5f, -0.5f, -0.5f);
+            glVertex3f(-0.5f, -0.5f, -0.5f);
+            glVertex3f(-0.5f, -0.5f, 0.5f);
             
             glColor3fv(colors[4]);
             // glColor3f(1,0,1);          // Set The Color To Violet
-            glVertex3f(-1.0f, -1.0f, 1.0f); // left
-            glVertex3f(-1.0f, -1.0f, -1.0f);
-            glVertex3f(-1.0f, 1.0f, -1.0f);
-            glVertex3f(-1.0f, 1.0f, 1.0f);
+            glVertex3f(-0.5f, -0.5f, 0.5f); // left
+            glVertex3f(-0.5f, -0.5f, -0.5f);
+            glVertex3f(-0.5f, 0.5f, -0.5f);
+            glVertex3f(-0.5f, 0.5f, 0.5f);
             
             glColor3fv(colors[5]);
             // glColor3f(1,1,1);          // Set The Color To Blue
-            glVertex3f(-1.0f, 1.0f, -1.0f); // front
-            glVertex3f(-1.0f, -1.0f, -1.0f);
-            glVertex3f(1.0f, -1.0f, -1.0f);
-            glVertex3f(1.0f, 1.0f, -1.0f);
+            glVertex3f(-0.5f, 0.5f, -0.5f); // front
+            glVertex3f(-0.5f, -0.5f, -0.5f);
+            glVertex3f(0.5f, -0.5f, -0.5f);
+            glVertex3f(0.5f, 0.5f, -0.5f);
         }
         glEnd();
         glPopMatrix();
+    }
+
+    public boolean intersects(Vec3 point) {
+        Vec3[] bounds = boundingBox();
+        return (bounds[1].getX() <= point.getX() && bounds[0].getX() >= point.getX()) &&
+        (bounds[1].getY() <= point.getY() && bounds[0].getY() >= point.getY()) &&
+        (bounds[1].getZ() <= point.getZ() && bounds[0].getZ() >= point.getZ());
+    }
+
+    public Vec3[] boundingBox() {
+        return new Vec3[] {
+            new Vec3(x+0.5f*w,
+            y+0.5f*h,
+            z+0.5f*d),
+            new Vec3(x-0.5f*w,
+            y-0.5f*h,
+            z-0.5f*d)
+        };
     }
 
     public void init() {

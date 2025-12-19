@@ -14,7 +14,7 @@ public class Vec3 extends Vec {
      * @param x The x-coordinate of the vector.
      * @param y The y-coordinate of the vector.
      * @param z The z coordinate of the vector.
-     * @return Nothing.
+     * @return this
      */
     public Vec3 add(float x, float y, float z) {
         super.add(x, y);
@@ -22,33 +22,81 @@ public class Vec3 extends Vec {
         return this;
     }
 
+    /**
+     * Adds given vector componenets to this vector
+     * @param a vector to add
+     * @return this
+     */
     public Vec3 add(Vec3 a) {
         super.add(a);
         this.z += a.getZ();
         return this;
     }
 
+    /**
+     * It subtracts the given x, y, and z values from the x, y, and z values of the vector.
+     * 
+     * @param x The x coordinate of the vector to subtract from this vector.
+     * @param y The y coordinate of the vector.
+     * @param z The z coordinate of the vector.
+     * @return this
+     */
     public Vec3 sub(float x, float y, float z) {
         super.sub(x, y);
         this.z -= z;
         return this;
     }
 
+
+    /**
+     * It subtracts this vectors components from the components of the given vector.
+     * 
+     * @param a The vector to subtract from this vector.
+     * @return this
+     */
     public Vec3 sub(Vec3 a) {
         super.sub(a);
         this.z -= a.getZ();
         return this;
     }
 
+    /**
+     * Multiply the vector by a scalar
+     * 
+     * @param o The scalar to multiply the vector by.
+     * @return this
+     */
     public Vec3 mult(float o) {
         super.mult(o);
-        this.z *= 0;
+        this.z *= o;
         return this;
     }
 
+    /**
+     * It sets the x, y, and z values of the vector.
+     * 
+     * @param x The x-coordinate of the vector.
+     * @param y The y-coordinate of the vector.
+     * @param z The z coordinate of the vector.
+     * @return this
+     */
     public Vec3 set(float x, float y, float z) {
         super.set(x, y);
         this.z = z;
+        return this;
+    }
+
+    /**
+     * It sets the x, y, and z values of the vector.
+     * 
+     * @param x The x-coordinate of the vector.
+     * @param y The y-coordinate of the vector.
+     * @param z The z coordinate of the vector.
+     * @return this
+     */
+    public Vec3 set(Vec3 a) {
+        super.set(a);
+        this.z = a.getZ();
         return this;
     }
 
@@ -91,14 +139,37 @@ public class Vec3 extends Vec {
     /**
      * Normalize the vector
      * 
-     * @return Nothing.
+     * @return this
      */
     public Vec3 normalize() {
-        double offset = 1/Math.sqrt(x*x+y*y+z*z);
+        return setMag(1);
+    }
+
+    public Vec3 setMag(float a) {
+        double offset = a/getMag();
         x *= offset;
         y *= offset;
         z *= offset;
         return this;
+    }
+
+    public Vec3 limit(float a) {
+        if (getMag() > a) setMag(a);
+        return this;
+    }
+
+    public Vec3 limitX(float a) {
+        x = Math.max(-a, Math.min(a, x));
+        return this;
+    }
+
+    public Vec3 limitZ(float a) {
+        z = Math.max(-a, Math.min(a, z));
+        return this;
+    }
+
+    public double getMag() {
+        return Math.sqrt(x*x+y*y+z*z);
     }
 
     /**
@@ -119,10 +190,49 @@ public class Vec3 extends Vec {
         return new Vec3(x, y, z);
     }
 
+    /**
+     * Return a new Vec3 that is the sum of the two Vec3s
+     * 
+     * @param a The first vector.
+     * @param b The vector to add to the current vector.
+     * @return A new Vec3 object.
+     */
+    public static Vec3 add(Vec3 a, Vec3 b) {
+        return a.copy().add(b);
+    }
+
+    /**
+     * `sub` subtracts the second vector from the first vector
+     * 
+     * @param a The first vector.
+     * @param b The vector to subtract from a.
+     * @return A new Vec3 object.
+     */
+    public static Vec3 sub(Vec3 a, Vec3 b) {
+        return a.copy().sub(b);
+    }
+
+    /**
+     * Multiply a vector by a scalar
+     * 
+     * @param a The vector to be multiplied.
+     * @param o The scalar to multiply the vector by.
+     * @return A new Vec3 object.
+     */
+    public static Vec3 mult(Vec3 a, float o) {
+        return a.copy().mult(o);
+    }
+
     public String toString() {
         return new StringBuffer().append("(").append(x).append(", ").append(y).append(", ").append(z).append(")").toString();
     }
 
+    /**
+     * Check if this vector is equal to another vector.
+     * 
+     * @param vec The vector to compare to.
+     * @return true if equal
+     */
     public boolean equals(Vec3 vec) {
         return super.equals(vec) && z == vec.getZ();
     }
